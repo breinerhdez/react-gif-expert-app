@@ -1,31 +1,22 @@
-import { useEffect, useState } from "react";
-import { getGifs } from "../helpers/getGifs";
+import { useEffect, useState } from 'react'
+import { getGifs } from '../helpers/getGifs'
 
-export const useFetchGifs = ( category ) => {
-    
-    const [state, setState] = useState({
-        data: [],
-        loading: true
-    })
+export const useFetchGifs = (category) => {
+  const [state, setState] = useState({
+    data: [],
+    loading: true
+  })
 
-    // los efectos no pueden ser asíncronos, por lo tanto se debe usar el then y no el await
-    useEffect( () => {
-        getGifs( category )
-            .then( imgs => {
-                setState({
-                    data: imgs,
-                    loading: false
-                })
-            })
-    }, [category])
+  // los efectos no pueden ser asíncronos, por lo tanto se debe usar el then y no el await
+  useEffect(() => {
+    getGifs(category)
+      .then(imgs => {
+        setState({
+          data: imgs,
+          loading: false
+        })
+      })
+  }, [category])
 
-    // setTimeout(() => {
-    //     setState({
-    //         data: [1,2,3,4,5],
-    //         loading: false
-    //     })
-    // }, 3000);
-
-    return state;
-
+  return state
 }
