@@ -1,52 +1,23 @@
 import React from 'react'
 import { useFetchGifs } from '../hooks/useFetchGifs'
-// import { getGifs } from '../helpers/getGifs'
-// import { GifGridItem } from './GifGridItem'
+import { GifGridItem } from './GifGridItem'
 
 export const GifGrid = ({ category }) => {
 
-    const {data, loading} = useFetchGifs();
-    console.log(data)
-    console.log(loading)
-
-    // const [images, setImages] = useState([])
-
-    // useEffect( () => {
-    //     // normal atendiendo la promesa
-    //     // getGifs(category).then( imgs => setImages( imgs ) )
-        
-    //     // forma optimizada, el primer argumento se envía como parámetro de la función setImages
-    //     // esta y la anterior son exáctamente lo mismo
-    //     getGifs(category).then( setImages )
-    // }, [ category ])
-
-    // El código se va para helpers/getGifs.js
-    // const getGifs = async() => {
-
-    //     const url = `http://api.giphy.com/v1/gifs/search?q=${ encodeURI(category) }&api_key=e8EVVoIXa7ZXcn8hEkRMj5YCSr3xE6FD&limit=10`
-    //     const resp = await fetch( url )
-    //     const {data} = await resp.json()
-
-    //     const gifs = data.map( img => {
-    //         return {
-    //             id: img.id,
-    //             title: img.title,
-    //             url: img.images?.downsized_medium.url
-    //         }
-    //     })
-
-    //     console.log(gifs) 
-    //     setImages(gifs)
-    // }
-
+    const {data:images, loading} = useFetchGifs( category );
+    
     return (
         <>
             <h3>{ category }</h3>
-            { loading ? 'Cargando...' : 'Información completa.'}
-            {/*
+            
+            { 
+            // loading ? 'Cargando...' : 'Información completa.'
+            loading && 'Cargando...'
+            }
+            
             <div className="card-grid">
-                 <ol>
-                    {
+                 {
+                    //  <ol>
                         // Con retorno explícito
                         // images.map(img => (
                         //     <li key={ img.id }>{ img.title }</li>
@@ -61,18 +32,18 @@ export const GifGrid = ({ category }) => {
                         // images.map( ({ id, title }) => {
                         //     return <li key={ id }>{ title }</li>
                         //  })
-                    }
-                </ol> 
                     
-                    // usando el componente encargado de renderizar cada item
-                    images.map( img => (
-                            <GifGridItem
-                                key={ img.id }
-                                { ...img }
-                            />
-                    ))
+                    // </ol> 
+                
+                // usando el componente encargado de renderizar cada item
+                images.map( img => (
+                        <GifGridItem
+                            key={ img.id }
+                            { ...img }
+                        />
+                ))
+                }
             </div>
-            */}
         </>
     )
 }
